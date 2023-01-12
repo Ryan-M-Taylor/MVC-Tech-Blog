@@ -103,12 +103,12 @@ router.get('/comments/:id', withAuth, async (req, res) => {
     }
 );
 
-router.post('/comments', withAuth, async (req, res) => {
+router.post('/:id', withAuth, async (req, res) => {
     try {
       const newComment = await Comment.create({
         ...req.body,
-        userId: req.session.user_id,
-        comment_text: req.body.comment_text,
+        user_id: req.session.user_id,
+        project_id: req.params.id,
       });
       res.json(newComment);
     } catch (err) {

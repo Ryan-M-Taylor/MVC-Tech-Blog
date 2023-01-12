@@ -2,7 +2,15 @@
   <h2>{{name}}</h2>
   <p>{{description}}</p>
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
-  <p>
+ {{#if comments.length}}
+  {{#each comments as |comment|}}
+  <div class="flex-column">
+    <p>{{comment.comment_text}}</p>
+    <p>Created by {{comment.user.name}} on {{format_date date_created}}</p>
+  </div>
+  {{/each}}
+  {{/if}}
+  <input type="hidden" value={{id}} id='id'>
     <form class='form comment-form'>
       <div class='form-group'>
         <label for='comment'>Write comment here:</label>
@@ -12,4 +20,4 @@
     <button class='btn btn-primary comment-btn'>Submit comment</button>
   </p>
 </div>
-<script src='./js/comment.js'></script>
+<script src='/js/comment.js'></script>

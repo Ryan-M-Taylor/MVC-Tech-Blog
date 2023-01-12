@@ -4,8 +4,9 @@ const Comment = require('./Comment');
 
 // create associations
 
-Comment.belongsTo(User, {
-  foreignKey: 'user_id'
+User.hasMany(Project, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE'
 });
 
 User.hasMany(Comment, {
@@ -13,8 +14,8 @@ User.hasMany(Comment, {
   onDelete: 'CASCADE'
 });
 
-Comment.belongsTo(Project, {
-  foreignKey: 'project_id'
+Project.belongsTo(User, {
+  foreignKey: 'user_id'
 });
 
 Project.hasMany(Comment, {
@@ -22,14 +23,16 @@ Project.hasMany(Comment, {
   onDelete: 'CASCADE'
 });
 
-User.hasMany(Project, {
-  foreignKey: 'user_id',
-  onDelete: 'CASCADE'
-});
-
-Project.belongsTo(User, {
+Comment.belongsTo(User, {
   foreignKey: 'user_id'
 });
+
+Comment.belongsTo(Project, {
+  foreignKey: 'project_id'
+});
+
+
+
 
 
 
