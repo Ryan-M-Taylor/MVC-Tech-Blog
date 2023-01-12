@@ -115,6 +115,26 @@ router.post('/:id', withAuth, async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+
+router.delete('/:id', withAuth, async (req, res) => {
+    try {
+        console.log("Deleting the comment")
+        console.log(req.params)
+        console.log(req.session.user_id)
+        const commentData = await Comment.destroy({
+        where: {
+            id: req.params.id,
+            user_id: req.session.user_id,
+        },
+        });
+        console.log(commentData);
+       res.status(200).json(commentData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
   
 
 module.exports = router;

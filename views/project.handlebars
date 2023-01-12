@@ -7,6 +7,7 @@
   <div class="flex-column">
     <p>{{comment.comment_text}}</p>
     <p>Created by {{comment.user.name}} on {{format_date date_created}}</p>
+    <button id="{{comment.id}}" class='btn btn-primary delete-btn'>Delete comment</button>
   </div>
   {{/each}}
   {{/if}}
@@ -19,5 +20,8 @@
     </form>
     <button class='btn btn-primary comment-btn'>Submit comment</button>
   </p>
+  {{#if matchingCreators}}
+  <button>Update Post</button>
+  {{/if}}
 </div>
 <script src='/js/comment.js'></script>

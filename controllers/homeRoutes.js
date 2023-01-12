@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project, User, Comment} = require('../models');
+const { Project, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -33,11 +33,11 @@ router.get('/projects/:id', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['name', 'id'],
         },
         {
           model: Comment,
-          attributes: ['comment_text', 'date_created'],
+          attributes: ['comment_text', 'date_created', 'id'],
           include: [
             {
               model: User,
@@ -49,10 +49,17 @@ router.get('/projects/:id', async (req, res) => {
     });
 
     const project = projectData.get({ plain: true });
-
+    var matchingCreators = false;
+    if (req.session.user_id) {
+      if (project.user_id === req.session.user_id) {
+        matchingCreators = true;
+      }
+    }
+    console.log(matchingCreators)
     res.render('project', {
       ...project,
       logged_in: req.session.logged_in,
+      matchingCreators,
     });
   } catch (err) {
     res.status(500).json(err);
