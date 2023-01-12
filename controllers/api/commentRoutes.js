@@ -36,7 +36,7 @@ router.get('/', withAuth, async (req, res) => {
     }
 );
 
-router.get('/comment', withAuth, async (req, res) => {
+router.get('/comments', withAuth, async (req, res) => {
     try {
         const commentData = await Comment.findAll({
         where: {
@@ -60,7 +60,7 @@ router.get('/comment', withAuth, async (req, res) => {
     
         const comment = commentData.map((comment) => comment.get({ plain: true }));
     
-        res.render('comment', {
+        res.render('comments', {
         comment,
         logged_in: req.session.logged_in,
         });
@@ -70,7 +70,7 @@ router.get('/comment', withAuth, async (req, res) => {
     }
 );
 
-router.get('/comment/:id', withAuth, async (req, res) => {
+router.get('/comments/:id', withAuth, async (req, res) => {
     try {
         const commentData = await Comment.findByPk(req.params.id, {
 
@@ -92,7 +92,7 @@ router.get('/comment/:id', withAuth, async (req, res) => {
 
         const comment = commentData.get({ plain: true });
 
-        res.render('comment', {
+        res.render('comments', {
         ...comment,
         logged_in: req.session.logged_in,
         });
@@ -102,5 +102,19 @@ router.get('/comment/:id', withAuth, async (req, res) => {
     }
     }
 );
+
+router.post('/comments', withAuth, async (req, res) => {
+    try {
+      const newComment = await Comment.create({
+        ...req.body,
+        userId: req.session.user_id,
+        comment_text: req.body.comment_text,
+      });
+      res.json(newComment);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
 
 module.exports = router;

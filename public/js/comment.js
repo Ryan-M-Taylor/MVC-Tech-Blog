@@ -6,7 +6,6 @@ const commentFormHandler = async (event) => {
     const comment_text = document.querySelector('#comment-text').value.trim();
     const project_id = document.querySelector('#project-id').value.trim();
 
-
     if (comment_text && project_id) {
         const response = await fetch(`/api/comments`, {
             method: 'POST',
@@ -17,7 +16,7 @@ const commentFormHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/dashboard');
+            document.location.replace('/projects');
         } else {
 
             alert('Failed to create comment');

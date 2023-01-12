@@ -6,3 +6,4 @@ A tech blog that allows users to create their own account and then post blog art
 
 ## Link to Deployed Application
 
+[Click Here](https://agile-thicket-19861.herokuapp.com/)
