@@ -8,14 +8,14 @@
   <div class="col-md-6">
     <h3>Create a new blog post:</h3>
 
-    <form class="form new-project-form">
+    <form class="form new-blog-form">
       <div class="form-group">
-        <label for="project-name">Post title:</label>
-        <input class="form-input" type="text" id="project-name" name="project-name" />
+        <label for="blog-name">Post title:</label>
+        <input class="form-input" type="text" id="blog-name" name="blog-name" />
       </div>
       <div class="form-group">
-        <label for="project-desc">Post body:</label>
-        <textarea class="form-input" id="project-desc" name="project-desc"></textarea>
+        <label for="blog-desc">Post body:</label>
+        <textarea class="form-input" id="blog-desc" name="blog-desc"></textarea>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Create</button>
@@ -23,17 +23,17 @@
     </form>
   </div>
 
-  {{#if projects.length}}
-  <div class="col-md-6 project-list">
-    <h3>Current Projects:</h3>
+  {{#if blogs.length}}
+  <div class="col-md-6 blog-list">
+    <h3>Current blogs:</h3>
 
-    {{#each projects as |project|}}
+    {{#each blogs as |blog|}}
     <div class="row mb-2">
       <div class="col-md-8">
-        <h4><a href="/projects/{{project.id}}">{{project.name}}</a></h4>
+        <h4><a href="/blogs/{{blog.id}}">{{blog.name}}</a></h4>
       </div>
       <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{project.id}}">DELETE</button>
+        <button class="btn btn-sm btn-danger delete-btn" data-id="{{blog.id}}">DELETE</button>
       </div>
     </div>
     {{/each}}

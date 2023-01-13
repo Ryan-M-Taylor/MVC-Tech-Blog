@@ -13,13 +13,17 @@
   {{/if}}
   <input type="hidden" value={{id}} id='id'>
     <form class='form comment-form'>
+    {{#if matchingCreators}}
       <div class='form-group'>
         <label for='comment'>Write comment here:</label>
         <input class='form-input' type="text" id='comment-text' />
       </div>
     </form>
     <button class='btn btn-primary comment-btn'>Submit comment</button>
-  </p>
+    {{else}}
+    <p>You must be logged in to comment!</p>
+    <a href='/login'>Login</a>
+    {{/if}}
   {{#if matchingCreators}}
   <button>Update Post</button>
   {{/if}}

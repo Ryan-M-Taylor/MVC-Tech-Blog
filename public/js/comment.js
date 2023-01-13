@@ -14,7 +14,7 @@ const commentFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace(`/projects/${id}`);
+      document.location.replace(`/blogs/${id}`);
     } else {
       alert('Failed to create comment');
       throw new Error(response.statusText);
@@ -31,7 +31,6 @@ const deleteCommentHandler = async (event) => {
   event.preventDefault();
 
   const id = event.target.getAttribute("id")
-  console.log(id)
 
   const response = await fetch(`/api/comments/${id}`, {
     method: 'DELETE',

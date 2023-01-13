@@ -1,17 +1,17 @@
 const router = require('express').Router();
-const { User, Project, Comment } = require('../../models');
+const { User, Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
     try {
-        const projectData = await Project.findAll({
+        const blogData = await Blog.findAll({
         where: {
             user_id: req.session.user_id,
         },
         include: [
             {
             model: Comment,
-            attributes: ['id', 'comment_text', 'project_id', 'user_id', 'date_created'],
+            attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'date_created'],
             include: {
                 model: User,
                 attributes: ['username'],
@@ -24,10 +24,10 @@ router.get('/', withAuth, async (req, res) => {
         ],
         });
     
-        const projects = projectData.map((project) => project.get({ plain: true }));
+        const blogs = blogData.map((blog) => blog.get({ plain: true }));
     
         res.render('dashboard', {
-        projects,
+        blogs,
         logged_in: req.session.logged_in,
         });
     } catch (err) {
@@ -44,7 +44,7 @@ router.get('/comments', withAuth, async (req, res) => {
         },
         include: [
             {
-            model: Project,
+            model: Blog,
             attributes: ['id', 'name', 'description', 'date_created', 'user_id'],
             include: {
                 model: User,
@@ -76,7 +76,7 @@ router.get('/comments/:id', withAuth, async (req, res) => {
 
         include: [
             {
-            model: Project,
+            model: Blog,
             attributes: ['id', 'name', 'description', 'date_created', 'user_id'],
             include: {
                 model: User,
@@ -108,7 +108,7 @@ router.post('/:id', withAuth, async (req, res) => {
       const newComment = await Comment.create({
         ...req.body,
         user_id: req.session.user_id,
-        project_id: req.params.id,
+        blog_id: req.params.id,
       });
       res.json(newComment);
     } catch (err) {
@@ -119,9 +119,6 @@ router.post('/:id', withAuth, async (req, res) => {
 
 router.delete('/:id', withAuth, async (req, res) => {
     try {
-        console.log("Deleting the comment")
-        console.log(req.params)
-        console.log(req.session.user_id)
         const commentData = await Comment.destroy({
         where: {
             id: req.params.id,
