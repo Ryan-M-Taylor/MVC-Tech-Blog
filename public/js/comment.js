@@ -46,8 +46,33 @@ const deleteCommentHandler = async (event) => {
   }
 };
 
+const updateCommentHandler = async (event) => {
+
+    const id = event.target.getAttribute("id")
+    const comment_text = document.querySelector(`#comment-text-${id}`).value;
+    
+    const response = await fetch(`/api/comments/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ comment_text }),
+        headers: {
+        'Content-Type': 'application/json',
+        },
+    });
+    
+    if (response.ok) {
+        document.location.reload()
+    } else {
+        alert('Failed to update comment');
+        throw new Error(response.statusText);
+    }
+    };
+
 var deleteButtons = document.getElementsByClassName('delete-btn');
-console.log(deleteButtons)
 for (const button of deleteButtons) {
   button.addEventListener('click', deleteCommentHandler);
 }
+
+document.querySelector('.update-btn').addEventListener('click', updateCommentHandler);
+
+
+

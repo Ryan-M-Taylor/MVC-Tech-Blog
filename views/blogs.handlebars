@@ -2,30 +2,30 @@
   <h2>{{name}}</h2>
   <p>{{description}}</p>
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
- {{#if comments.length}}
+  {{#if comments.length}}
   {{#each comments as |comment|}}
   <div class="flex-column">
     <p>{{comment.comment_text}}</p>
     <p>Created by {{comment.user.name}} on {{format_date date_created}}</p>
-    <button id="{{comment.id}}" class='btn btn-primary delete-btn'>Delete comment</button>
+    <div>
+      <button id="{{comment.id}}" class='btn btn-sm btn-primary delete-btn col-md-4'>Delete comment</button>
+      <button id="{{comment.id}}" class="btn btn-sm update-btn col-md-4">Update comment</button>
+    </div>
   </div>
   {{/each}}
   {{/if}}
   <input type="hidden" value={{id}} id='id'>
-    <form class='form comment-form'>
+  <form class='form comment-form'>
     {{#if matchingCreators}}
-      <div class='form-group'>
-        <label for='comment'>Write comment here:</label>
-        <input class='form-input' type="text" id='comment-text' />
-      </div>
-    </form>
-    <button class='btn btn-primary comment-btn'>Submit comment</button>
-    {{else}}
-    <p>You must be logged in to comment!</p>
-    <a href='/login'>Login</a>
-    {{/if}}
-  {{#if matchingCreators}}
-  <button>Update Post</button>
+    <div class='form-group'>
+      <label for='comment'>Write comment here:</label>
+      <input class='form-input' type="text" id='comment-text' />
+    </div>
+  </form>
+  <button class='btn btn-primary comment-btn'>Submit comment</button>
+  {{else}}
+  <p>You must be logged in to comment!</p>
+  <a href='/login'>Login</a>
   {{/if}}
 </div>
 <script src='/js/comment.js'></script>
