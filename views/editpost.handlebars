@@ -5,11 +5,11 @@
     <form class="form new-blog-form">
       <div class="form-group">
         <label for="blog-name">Post title:</label>
-        <input class="form-input" type="text" id="blog-name" name="blog-name" value="{{blog.name}}" />
+        <input class="form-input" type="text" id="blog-name" name="blog-name" value="{{name}}" />
       </div>
       <div class="form-group">
         <label for="blog-desc">Post body:</label>
-        <textarea class="form-input" id="blog-desc" name="blog-desc" value="{{blog.description}}"></textarea>
+        <textarea class="form-input" id="blog-desc" name="blog-desc">{{description}}</textarea>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Create</button>

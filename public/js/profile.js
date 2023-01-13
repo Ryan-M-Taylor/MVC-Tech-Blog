@@ -71,5 +71,8 @@ document
 
 document
   .querySelector('.edit-btn')
-  .addEventListener('click', updatePostHandler);
+  .addEventListener('click', (event)=>{
+    window.location.href=`/editblogs/${event.target.getAttribute('data-id')}` 
+    console.log(event)
+  });
 

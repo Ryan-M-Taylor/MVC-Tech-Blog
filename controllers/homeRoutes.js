@@ -87,6 +87,7 @@ router.get('/editblogs/:id', async (req, res) => {
     });
 
     const blog = blogData.get({ plain: true });
+    console.log(blog)
     var matchingCreators = false;
     if (req.session.user_id) {
       if (blog.user_id === req.session.user_id) {
@@ -99,15 +100,6 @@ router.get('/editblogs/:id', async (req, res) => {
       matchingCreators,
     });
 
-    /**
-     * 1. when user clicks on edit button, it should redirect them to /editblogs/:id
-     * 2. [DONE] when user is on edit page, it should
-     *    3. load the input value with the blog's current title <input value="{{ }}"/>
-     *    4. load the textarea with the blog's current description 
-     * 5. when user clicks on submit button,
-     *    6. it should call on the update post endpoint
-     *    7. redirect the user to /blogs/:id  
-     */
   } catch (err) {
     res.status(500).json(err);
   }
