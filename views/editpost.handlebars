@@ -1,0 +1,19 @@
+<div class="row mt-4">
+  <div class="col-md-6">
+    <h3>Edit blog post:</h3>
+
+    <form class="form new-blog-form">
+      <div class="form-group">
+        <label for="blog-name">Post title:</label>
+        <input class="form-input" type="text" id="blog-name" name="blog-name" value="{{blog.name}}" />
+      </div>
+      <div class="form-group">
+        <label for="blog-desc">Post body:</label>
+        <textarea class="form-input" id="blog-desc" name="blog-desc" value="{{blog.description}}"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+<script src="/js/profile.js"></script>

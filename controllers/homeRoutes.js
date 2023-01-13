@@ -65,6 +65,54 @@ router.get('/blogs/:id', async (req, res) => {
   }
 });
 
+router.get('/editblogs/:id', async (req, res) => {
+  try {
+    const blogData = await Blog.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name', 'id'],
+        },
+        {
+          model: Comment,
+          attributes: ['comment_text', 'date_created', 'id'],
+          include: [
+            {
+              model: User,
+              attributes: ['name'],
+            },
+          ],
+        },
+      ],
+    });
+
+    const blog = blogData.get({ plain: true });
+    var matchingCreators = false;
+    if (req.session.user_id) {
+      if (blog.user_id === req.session.user_id) {
+        matchingCreators = true;
+      }
+    }
+    res.render('editpost', {
+      ...blog,
+      logged_in: req.session.logged_in,
+      matchingCreators,
+    });
+
+    /**
+     * 1. when user clicks on edit button, it should redirect them to /editblogs/:id
+     * 2. [DONE] when user is on edit page, it should
+     *    3. load the input value with the blog's current title <input value="{{ }}"/>
+     *    4. load the textarea with the blog's current description 
+     * 5. when user clicks on submit button,
+     *    6. it should call on the update post endpoint
+     *    7. redirect the user to /blogs/:id  
+     */
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
   try {

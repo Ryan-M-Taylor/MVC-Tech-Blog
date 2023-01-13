@@ -49,7 +49,7 @@ const deleteCommentHandler = async (event) => {
 const updateCommentHandler = async (event) => {
 
     const id = event.target.getAttribute("id")
-    const comment_text = document.querySelector(`#comment-text-${id}`).value;
+    const comment_text = document.querySelector(`#comment-text`).value;
     
     const response = await fetch(`/api/comments/${id}`, {
         method: 'PUT',

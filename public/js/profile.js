@@ -39,11 +39,14 @@ const delButtonHandler = async (event) => {
 };
 
 const updatePostHandler = async (event) => {
-  const id = event.target.getAttribute('id');
-  const name = document.querySelector(`#blog-name-${id}`).value;
-  const description = document.querySelector(`#blog-desc-${id}`).value;
+  event.preventDefault();
+  if (event.target.hasAttribute('data-id')) {
+    //create new form handler when edit button is clicked
+    const id = event.target.getAttribute('data-id');
+    const name = document.querySelector('#blog-name').value.trim();
+    const description = document.querySelector('#blog-desc').value.trim();
 
-  const response = await fetch(`/api/blogs/${id}`, {
+  const response = await fetch(`/editblogs/${id}`, {
     method: 'PUT',
     body: JSON.stringify({ name, description }),
     headers: {
@@ -54,8 +57,8 @@ const updatePostHandler = async (event) => {
     document.location.replace('/profile');
   } else {
     alert('Failed to update blog');
-    throw new Error(response.statusText);
   }
+}
 };
 
 document
@@ -69,3 +72,4 @@ document
 document
   .querySelector('.edit-btn')
   .addEventListener('click', updatePostHandler);
+
